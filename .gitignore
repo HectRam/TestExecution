@@ -2,3 +2,4 @@
 .settings/
 selenium-java-4.18.1.zip
 .classpath
+test-output/

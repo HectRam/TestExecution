@@ -32,7 +32,8 @@ public class requestRestAssured {
 			r = s.charAt(0);
 
 			if (r == 's') {
-				System.out.println("Pokemon ID:"+i+1+" Name: "+s);
+				
+				System.out.println("Pokemon ID:"+ ( i+1 ) +" Name: "+s);
 			}
 
 		}
