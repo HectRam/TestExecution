@@ -3,3 +3,5 @@
 selenium-java-4.18.1.zip
 .classpath
 test-output/
+/target/
+target/classes/META-INF/maven/com.sdet/Challenge/pom.properties

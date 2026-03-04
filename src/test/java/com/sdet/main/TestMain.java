@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -71,6 +71,12 @@ public class TestMain {
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//img[@Class='c-image']")));
 		
 		}
+	}
+	
+	public void sleep(int value) throws InterruptedException {
+		
+		Thread.sleep(value);
+		
 	}
 
 	@AfterSuite

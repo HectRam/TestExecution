@@ -9,7 +9,7 @@ public class itemsArePresent extends TestMain{
 
 	
 	@Test
-	public void itemspresent() throws InterruptedException {
+	public void itemspresent() {
 		
 			System.out.println("Starting itemsArePresent--------------");
 		if(driver.findElements(By.id("m365btn_id"))!= null){
@@ -60,7 +60,7 @@ public class itemsArePresent extends TestMain{
 			}
 		
 		System.out.println("Finishing itemsArePresent------------------------");
-		//Thread.sleep(3000);
+		
 		
 		
 	}
