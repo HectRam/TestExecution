@@ -6,14 +6,13 @@ import io.restassured.path.json.JsonPath;
 
 import static io.restassured.RestAssured.*;
 
-
 import org.testng.annotations.Test;
 
 public class requestRestAssured {
 
 	@Test
 	public void getRequest() {
-		
+
 		System.out.println("Starting requestRestAssured------------------------");
 		RestAssured.baseURI = "https://pokeapi.co/";
 
@@ -24,16 +23,16 @@ public class requestRestAssured {
 		// String name = js.getString("name");
 
 		int count = js.getInt("results.size()");
-		System.out.println("Pokemon Count Size: "+count);
+		System.out.println("Pokemon Count Size: " + count);
 
 		for (int i = 0; i < count; i++) {
-			String s=js.get("results["+i+"].name");
-		char r = ' ';
+			String s = js.get("results[" + i + "].name");
+			char r = ' ';
 			r = s.charAt(0);
 
 			if (r == 's') {
-				
-				System.out.println("Pokemon ID:"+ ( i+1 ) +" Name: "+s);
+
+				System.out.println("Pokemon ID:" + (i + 1) + " Name: " + s);
 			}
 
 		}
