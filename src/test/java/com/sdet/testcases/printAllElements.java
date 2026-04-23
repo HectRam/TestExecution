@@ -14,7 +14,7 @@ public class printAllElements extends TestMain {
 	public void printAll() throws InterruptedException {
 
 		System.out.println("Starting printAllElements------------------------");
-		driver.findElement(By.id("shellmenu_3")).click();// On Url https://www.microsoft.com/en-us/ clicks on windows
+		driver.findElement(By.xpath("//div[@class='uhf-overflow-menu-items']/a[4]")).click();// On Url https://www.microsoft.com/en-us/ clicks on windows
 															// button
 		// driver.get("https://www.microsoft.com/en-us/windows/");
 		XpresenceOfElementLocated("//a[@id='uhfCatLogo']");

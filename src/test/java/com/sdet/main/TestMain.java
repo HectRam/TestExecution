@@ -72,7 +72,7 @@ public class TestMain {
 			driver.get(config.getProperty("testsiteurl"));
 			System.out.println("Navigated to: " + config.getProperty("testsiteurl"));
 			driver.manage().window().maximize();
-			XpresenceOfElementLocated("//img[@Class='c-image']");// Waits for webpage to be displayed
+			XpresenceOfElementLocated("//img[@alt='Microsoft']");// Waits for webpage to be displayed
 		}
 	}
 

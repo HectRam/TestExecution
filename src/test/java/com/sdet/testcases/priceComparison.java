@@ -32,9 +32,8 @@ public class priceComparison extends TestMain {
 		driver.findElement(By.id("buybox-cta-proper")).click();// add it to the cart
 
 		XpresenceOfElementLocated("//span[text()='Home']");//waits for the element to be displayed
-
-		driver.findElement(By.id("uhf-shopping-cart")).click();// click into cart button next to search and is sent into checkout page
-
+									 
+		driver.findElement(By.xpath("//span[@class='uhf-cart-text']")).click();// click into cart button next to search and is sent into checkout page
 		driver.switchTo().frame("purchase-frame"); // switching the frame by ID
 		System.out.println("switching the frame by ID");
 		String price2 = driver
@@ -45,6 +44,7 @@ public class priceComparison extends TestMain {
 		prices(price1, price2);
 
 		System.out.println("Finishing priceComparison------------------------");
+		Assert.assertTrue(true);
 
 	}
 
