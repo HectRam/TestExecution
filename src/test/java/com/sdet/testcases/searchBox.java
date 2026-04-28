@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.sdet.main.TestMain;
+import com.sdet.utilities.waits;
 
 public class searchBox extends TestMain {
 
@@ -17,7 +18,7 @@ public class searchBox extends TestMain {
 
 		// driver.get("https://www.microsoft.com/en-us/windows/?r=1");
 
-		CpresenceOfElementLocated("#search > span:nth-child(1)");
+		waits.CpresenceOfElementLocated("#search > span:nth-child(1)");
 
 		driver.findElement(By.cssSelector("#search > span:nth-child(1)")).click();
 

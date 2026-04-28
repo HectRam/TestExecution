@@ -12,12 +12,31 @@ import com.sdet.main.TestMain;
 public class waits extends TestMain{
 	
 	/*
-	 * Function that wait for an element to be visible
+	 * Functions that wait for an element to be visible
 	 */
-	public static void waitFor(String element) {
+	public static void XpresenceOfElementLocated(String element) {
 		new WebDriverWait(driver, Duration.ofSeconds(10))
-		.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
-		//new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOf(element));//system waits 30 seconds
+				.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
+	}
+
+	public static void CpresenceOfElementLocated(String element) {
+		new WebDriverWait(driver, Duration.ofSeconds(10))
+				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
+	}
+
+	public static void CvisibilityOfElementLocated(String element) {
+		new WebDriverWait(driver, Duration.ofSeconds(10))
+				.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(element)));
+	}
+
+	public static void CelementToBeClickable(String element) {
+		new WebDriverWait(driver, Duration.ofSeconds(10))
+				.until(ExpectedConditions.elementToBeClickable(By.cssSelector(element)));
+	}
+
+	public static void XelementToBeClickable(String element) {
+		new WebDriverWait(driver, Duration.ofSeconds(10))
+				.until(ExpectedConditions.elementToBeClickable(By.xpath(element)));
 	}
 
 }

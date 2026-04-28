@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.sdet.main.TestMain;
+import com.sdet.utilities.waits;
 
 public class printAllElements extends TestMain {
 
@@ -17,7 +18,7 @@ public class printAllElements extends TestMain {
 		driver.findElement(By.xpath("//div[@class='uhf-overflow-menu-items']/a[4]")).click();// On Url https://www.microsoft.com/en-us/ clicks on windows
 															// button
 		// driver.get("https://www.microsoft.com/en-us/windows/");
-		XpresenceOfElementLocated("//a[@id='uhfCatLogo']");
+		waits.XpresenceOfElementLocated("//a[@id='uhfCatLogo']");
 
 		driver.findElement(By.cssSelector("div.c-uhf-menu.js-nav-menu")).click();
 		Thread.sleep(3000);
