@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.sdet.main.TestMain;
+import com.sdet.utilities.locators;
 import com.sdet.utilities.waits;
 
 public class printAllElements extends TestMain {
@@ -15,14 +16,13 @@ public class printAllElements extends TestMain {
 	public void printAll() throws InterruptedException {
 
 		System.out.println("Starting printAllElements------------------------");
-		driver.findElement(By.xpath("//div[@class='uhf-overflow-menu-items']/a[4]")).click();// On Url https://www.microsoft.com/en-us/ clicks on windows
-															// button
+		locators.Click("Windows_X");// clicks on windows button
 		// driver.get("https://www.microsoft.com/en-us/windows/");
-		waits.XpresenceOfElementLocated("//a[@id='uhfCatLogo']");
+		waits.presenceOfElementLocated("WaitCatLogo_X");
 
-		driver.findElement(By.cssSelector("div.c-uhf-menu.js-nav-menu")).click();
+		locators.Click("AboutWindows_C");
 		Thread.sleep(3000);
-		WebElement liElements = driver.findElement(By.cssSelector("div.c-uhf-menu.js-nav-menu"));
+		WebElement liElements = FindElement("AboutWindows_C");
 
 		List<WebElement> ListItems = liElements.findElements(By.tagName("li"));
 
