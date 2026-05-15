@@ -3,8 +3,11 @@ package com.sdet.main;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,8 +17,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-import com.sdet.utilities.locators;
+import com.aventstack.extentreports.Status;
+import com.sdet.extentlisteners.ExtentListeners;
 import com.sdet.utilities.waits;
 
 public class TestMain {
@@ -25,10 +28,12 @@ public class TestMain {
 	public static Properties OR = new Properties();
 	public static FileInputStream fis;
 	public static WebDriverWait wait;
+	protected static Logger log = LogManager.getLogger(TestMain.class.getName());
 
 	@BeforeSuite
 	public void SetUp() {
-
+		
+		
 		if (driver == null) {
 			try {
 				fis = new FileInputStream(
@@ -64,6 +69,7 @@ public class TestMain {
 				driver = new FirefoxDriver();
 				// driver = new ChromeDriver();
 				System.out.println("Firefox launched ");
+				log.info("Firefox launched ");
 			}
 			if (config.getProperty("browser").equals("chrome")) {
 
@@ -71,35 +77,56 @@ public class TestMain {
 				driver = new ChromeDriver();
 				// driver = new ChromeDriver();
 				System.out.println("Chrome launched ");
+				log.info("Chrome launched ");
 			}
 			driver.get(config.getProperty("testsiteurl"));
 			System.out.println("Navigated to: " + config.getProperty("testsiteurl"));
+			log.info("Navigated to: " + config.getProperty("testsiteurl"));
 			driver.manage().window().maximize();
-			waits.presenceOfElementLocated("MainMenuBtn_X");// Waits for webpage to be displayed
+			driver.manage().timeouts()
+					.implicitlyWait(Duration.ofSeconds(Integer.parseInt(config.getProperty("implicit.wait"))));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(config.getProperty("explicit.wait"))));
+			waits.presenceOfElementLocated("MainMenuBtn_X");
 		}
 	}
 
 	public WebElement FindElement(String locator) {
+
 		WebElement res = null;
+
 		if (locator.endsWith("_X")) {
 			res = driver.findElement(By.xpath(OR.getProperty(locator)));
 		} else if (locator.endsWith("_C")) {
 			res = driver.findElement(By.cssSelector(OR.getProperty(locator)));
 		} else {
-			Assert.fail("Unable to found Element on FindElement Method");
+
+			ExtentListeners.test.log(Status.INFO, "Element not found : " + locator);
+			log.error("Element not found : " + locator);
+			Assert.fail("Unable to find Element on FindElement Method");
 		}
+		ExtentListeners.test.log(Status.INFO, "Finding Element : " + locator);
+		log.info("Finding Element : " + locator);
 		return res;
 	}
 
 	public String getTxt(String element) {
 
-		if (element.endsWith("_C")) {
-			element = driver.findElement(By.cssSelector(OR.getProperty(element))).getText();
-		} else if (element.endsWith("_X")) {
-			element = driver.findElement(By.xpath(OR.getProperty(element))).getText();
-		} else {
-			Assert.fail("Unable to found Element on getTxt Method");
+		try {
+			if (element.endsWith("_C")) {
+				element = driver.findElement(By.cssSelector(OR.getProperty(element))).getText();
+			} else if (element.endsWith("_X")) {
+				element = driver.findElement(By.xpath(OR.getProperty(element))).getText();
+
+			}
+
+		} catch (Throwable t) {
+			ExtentListeners.test.log(Status.FAIL,
+					"Unable to find Element on getTxt Method : " + element + " error message : " + t.getMessage());
+			log.error("Unable to find Element on getTxt Method : " + element + " error message : " + t.getMessage());
+			Assert.fail("Unable to find Element on getTxt Method : " + t.getMessage());
 		}
+		ExtentListeners.test.log(Status.INFO, "Getting text on Element : " + element);
+		log.info("Getting text on Element : " + element);
 		return element;
 	}
 
@@ -108,6 +135,7 @@ public class TestMain {
 
 		if (driver != null) {
 			driver.quit();
+			log.info("Test Execution Completed");
 		}
 	}
 

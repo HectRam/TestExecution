@@ -1,9 +1,10 @@
 package com.sdet.testcases;
 
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
+import com.sdet.extentlisteners.ExtentListeners;
 import com.sdet.main.TestMain;
 import com.sdet.utilities.locators;
 import com.sdet.utilities.waits;
@@ -14,8 +15,8 @@ public class priceComparison extends TestMain {
 	public void priceCompare() throws InterruptedException {
 
 		System.out.println("Starting priceComparison------------------------");
-
-		//driver.get("https://www.microsoft.com/en-us/d/visual-studio-professional-2026/dg7gmgf0d3sj?activetab=pivot:overviewtab");
+		log.info("Starting priceComparison");
+		// driver.get("https://www.microsoft.com/en-us/d/visual-studio-professional-2026/dg7gmgf0d3sj?activetab=pivot:overviewtab");
 		waits.visibilityOfElementLocated("PopUp_C");// Waits for pop up to appear
 
 		waits.elementToBeClickable("PopUp_C");
@@ -27,6 +28,8 @@ public class priceComparison extends TestMain {
 
 		String price1 = getTxt("GetPrice1_C");
 		System.out.println("Price 1: " + price1);
+		log.info("Price 1: " + price1);
+		ExtentListeners.test.log(Status.INFO, "Price 1: " + price1);
 
 		Thread.sleep(1000);
 		waits.elementToBeClickable("BuyBox_X");
@@ -35,13 +38,17 @@ public class priceComparison extends TestMain {
 		waits.presenceOfElementLocated("WaitforHomeBtn_X");// waits for the element to be displayed
 
 		locators.Click("CartBtn_X");// click into cart button next to search and
-																			// is sent into checkout page
+									// is sent into checkout page
 		driver.switchTo().frame("purchase-frame"); // switching the frame by ID
+		log.info("switching the frame by ID");
 		System.out.println("switching the frame by ID");
 		String price2 = getTxt("GetPrice2_X");
+		log.info("Price 2: " + price2);
 		System.out.println("Price 2: " + price2);
+		ExtentListeners.test.log(Status.INFO, "Price 2: " + price2);
 		prices(price1, price2);
 
+		log.info("Finishing priceComparison");
 		System.out.println("Finishing priceComparison------------------------");
 
 	}
@@ -49,10 +56,13 @@ public class priceComparison extends TestMain {
 	public static void prices(String price, String price2) {
 
 		if (price.substring(0, 5).equals(price2.substring(0, 5))) {
+			log.info("Same price");
 			System.out.println("Same price");
-
+			ExtentListeners.test.log(Status.PASS, "Same price");
 		} else {
 			// Assert.assertEquals(true, pricecorr.equals(pricecorr2));
+			log.info("Different price");
+			ExtentListeners.test.log(Status.FAIL, "Different price");
 			Assert.fail("Different price");
 		}
 

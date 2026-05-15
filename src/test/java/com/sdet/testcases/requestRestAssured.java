@@ -6,36 +6,54 @@ import io.restassured.path.json.JsonPath;
 
 import static io.restassured.RestAssured.*;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class requestRestAssured {
+import com.aventstack.extentreports.Status;
+import com.sdet.extentlisteners.ExtentListeners;
+import com.sdet.main.TestMain;
+
+public class requestRestAssured extends TestMain {
 
 	@Test
 	public void getRequest() {
 
 		System.out.println("Starting requestRestAssured------------------------");
-		RestAssured.baseURI = "https://pokeapi.co/";
+		log.info("Starting requestRestAssured");
 
-		String Response = given().log().all().when().get("api/v2/pokemon?limit=300&name").then().assertThat().log()
-				.all().statusCode(200).extract().response().asString();
+		try {
+			RestAssured.baseURI = "https://pokeapi.co/";
 
-		JsonPath js = new JsonPath(Response);
-		// String name = js.getString("name");
+			String Response = given().log().all().when().get("api/v2/pokemon?limit=300&name").then().assertThat().log()
+					.all().statusCode(200).extract().response().asString();
 
-		int count = js.getInt("results.size()");
-		System.out.println("Pokemon Count Size: " + count);
+			JsonPath js = new JsonPath(Response);
+			// String name = js.getString("name");
 
-		for (int i = 0; i < count; i++) {
-			String s = js.get("results[" + i + "].name");
-			char r = ' ';
-			r = s.charAt(0);
+			int count = js.getInt("results.size()");
+			System.out.println("Pokemon Count Size: " + count);
+			log.info("Pokemon Count Size: " + count);
+			ExtentListeners.test.log(Status.INFO, "Pokemon Count Size: " + count);
+			for (int i = 0; i < count; i++) {
+				String s = js.get("results[" + i + "].name");
+				char r = ' ';
+				r = s.charAt(0);
 
-			if (r == 's') {
+				if (r == 's') {
+					log.info("Pokemon ID:" + (i + 1) + " Name: " + s);
+					System.out.println("Pokemon ID:" + (i + 1) + " Name: " + s);
+					ExtentListeners.test.log(Status.INFO, "Pokemon ID:" + (i + 1) + " Name: " + s);
+				}
 
-				System.out.println("Pokemon ID:" + (i + 1) + " Name: " + s);
 			}
-
+			log.info("Request Passed");
+			ExtentListeners.test.log(Status.PASS, "Request Passed");
+		} catch (Throwable t) {
+			log.error("There was an error on the request: " + t.getMessage());
+			ExtentListeners.test.log(Status.FAIL, "There was an error on the request: " + t.getMessage());
+			Assert.fail(t.getMessage());
 		}
+		log.info("Finishing requestRestAssured");
 		System.out.println("Finishing requestRestAssured------------------------");
 	}
 }

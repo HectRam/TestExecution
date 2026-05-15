@@ -18,6 +18,7 @@ public class Screenshot extends TestMain{
 		Date d = new Date();
 		screenshotName = d.toString().replace(":", "_").replace(" ", "_") + ".jpg";
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		log.info(screenshotName+" Screenshot was taken");
 		FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"\\target\\surefire-reports\\" + screenshotName));
 	}
 

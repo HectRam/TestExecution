@@ -83,26 +83,21 @@
 			<artifactId>reportng</artifactId>
 			<version>1.1.4</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
-		<!--
-		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.17.1</version>
-		</dependency>
-		<!--
+		<!-- Source:
 		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.17.1</version>
+			<version>2.25.4</version>
+			<scope>compile</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.25.4</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
@@ -141,6 +136,27 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>4.1.1</version>
 		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.0.9</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.42</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.34</version>
+		</dependency>
 		<!-- POI JARS ENDS -->
 	</dependencies>
 	<build>
@@ -158,12 +174,6 @@
 			</plugin>
 		</plugins>
 		<testResources>
-			<testResource>
-				<directory>src/test/resources/properties</directory>
-				<includes>
-					<include>log4j2.properties</include>
-				</includes>
-			</testResource>
 		</testResources>
 	</build>
 </project>
